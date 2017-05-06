@@ -1,5 +1,6 @@
 package basicweb;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -9,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select; //pod dropdown
 
 public class FormTest {
 
@@ -76,6 +78,36 @@ public class FormTest {
 			Thread.sleep(1000);
 		}
 		
+		//szukanie w dropdown po value
+		WebElement preferAirline = driver.findElement(By.id("flight-advanced-preferred-airline"));
+		Select selPrefAirl = new Select(preferAirline);
+		selPrefAirl.selectByValue("LH");
+		Thread.sleep(1000);
+		//albo -> Select selPref = new Select(driver.findElement(By.id("flight-advanced-preferred-airline")));
+		
+		//szukanie w dropdown po nazwie 
+		WebElement preferClass = driver.findElement(By.id("flight-advanced-preferred-class"));
+		Select selPrefClass = new Select(preferClass);
+		//selPrefClass.selectByVisibleText(" Business "); //<- doesn't work
+		selPrefClass.selectByVisibleText("First Class"); // <- it works
+		Thread.sleep(1000);
+		//szukanie w dropdown po Id 
+		WebElement NoAdults = driver.findElement(By.id("flight-adults"));
+		Select selNoAdults = new Select(NoAdults);
+		selNoAdults.selectByIndex(1);
+		Thread.sleep(1000);
+		
+		//print all elements
+		System.out.println("List of Option");
+		List<WebElement> options = selPrefClass.getOptions();
+		int size = options.size();
+		
+		for (int i=0; i<size; i++){
+			String optionName = options.get(i).getText();
+			System.out.println("Option " + i + " = " + optionName);
+		}
+		
+		//search
 		driver.findElement(By.id("search-button")).click();
 		
 	}
