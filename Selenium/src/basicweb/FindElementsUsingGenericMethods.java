@@ -30,12 +30,21 @@ public class FindElementsUsingGenericMethods {
 
 	@Test
 	public void test() throws InterruptedException  {
-		WebElement element = gm.getElement("name", "id");
+		String locator = "name";
+		String type = "id";
+		WebElement element = gm.getElement(locator, type);
 		element.sendKeys("test");
 		
 		List<WebElement> list = gm.getElementList("//input[@type='text']", "xpath");
 		int size = list.size();
 		System.out.println("Size of the list: " + size);
+		
+		boolean result;
+		result = gm.isElementPresent(locator, type);
+		System.out.println("Is element "+ locator + " present?: " + result);
+		
+		result = gm.isElementPresent("sth-not-present", type);
+		System.out.println("Is element 'sth-not-present' present?: " + result);
 	}
 	
 	@After
