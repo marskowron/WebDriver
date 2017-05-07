@@ -38,12 +38,11 @@ public class MultipleSelect {
 		options.selectByValue("peach"); //wyszukanie po nazwie obiektu
 		Thread.sleep(1500);
 		
+		// drukowanie listy zaznaczonych
 		List<WebElement> selectedOptions = options.getAllSelectedOptions();
-		int NoOfSelectedOptions = selectedOptions.size();
-		
-		for (int j=0; j<NoOfSelectedOptions; j++ ){
-			String SelectedOptionName = selectedOptions.get(j).getText();
-			System.out.println("Selected value: " + SelectedOptionName);
+				
+		for (WebElement option: selectedOptions ){
+			System.out.println("Selected value: " + option.getText());
 		}
 		
 		options.deselectByIndex(1); //odznaczenie po id
@@ -53,10 +52,11 @@ public class MultipleSelect {
 		options.deselectByVisibleText("Apple"); //odznaczenie po widocznym tekœcie
 		Thread.sleep(1500);
 		
+		//zaznaczanie po kolei
 		List<WebElement> ListOfOptions = options.getOptions(); 
 		int listSize = ListOfOptions.size();
 		for (int i=0; i<listSize; i++){
-			options.selectByIndex(i);
+			options.selectByIndex(i); 
 			Thread.sleep(1000);
 		}
 		
