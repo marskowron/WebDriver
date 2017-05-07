@@ -54,7 +54,7 @@ public class FormTest {
 		addHotel = driver.findElement(By.id("flight-add-hotel-checkbox"));
 		System.out.println("Is addhotel selected? " + addHotel.isSelected());
 		addHotel.click();
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		addHotel = driver.findElement(By.id("flight-add-hotel-checkbox"));
 		System.out.println("Is addhotel selected? " + addHotel.isSelected());
 		
@@ -63,39 +63,38 @@ public class FormTest {
 		
 		WebElement destination = driver.findElement(By.id("flight-destination"));
 		destination.sendKeys("Barcelona");
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		WebElement fdeparting = driver.findElement(By.id("flight-departing"));
 		fdeparting.sendKeys("24/05/2017");
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		WebElement freturning = driver.findElement(By.id("flight-returning"));
 		freturning.sendKeys("28/05/2017");
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		
 		WebElement direct = driver.findElement(By.id("advanced-flight-nonstop-label"));
 		
 		if(direct.isDisplayed() == false){
 			driver.findElement(By.id("advanced-options")).click();
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		}
 		
 		//szukanie w dropdown po value
 		WebElement preferAirline = driver.findElement(By.id("flight-advanced-preferred-airline"));
 		Select selPrefAirl = new Select(preferAirline);
 		selPrefAirl.selectByValue("LH");
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		//albo -> Select selPref = new Select(driver.findElement(By.id("flight-advanced-preferred-airline")));
 		
 		//szukanie w dropdown po nazwie 
 		WebElement preferClass = driver.findElement(By.id("flight-advanced-preferred-class"));
 		Select selPrefClass = new Select(preferClass);
-		//selPrefClass.selectByVisibleText(" Business "); //<- doesn't work
 		selPrefClass.selectByVisibleText("First Class"); // <- it works
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		//szukanie w dropdown po Id 
 		WebElement NoAdults = driver.findElement(By.id("flight-adults"));
 		Select selNoAdults = new Select(NoAdults);
 		selNoAdults.selectByIndex(1);
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		
 		//print all elements
 		System.out.println("List of Option");
