@@ -1,4 +1,4 @@
-package basicweb;
+package WebDriverConfig;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;

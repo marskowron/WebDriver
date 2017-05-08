@@ -1,4 +1,4 @@
-package basicweb;
+package FindingElements;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
