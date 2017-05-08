@@ -1,4 +1,4 @@
-package basicweb;
+package FindingElements;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import TestFramework.GenericMethods;
 
 public class FindElementsUsingGenericMethods {
 

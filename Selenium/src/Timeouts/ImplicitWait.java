@@ -7,8 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
-import basicweb.GenericMethods;
+import TestFramework.GenericMethods;
 
 public class ImplicitWait {
 
