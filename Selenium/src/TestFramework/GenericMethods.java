@@ -106,4 +106,22 @@ public class GenericMethods {
 			return false;
 		}
 	}
+	
+	public void saveClickAB(){
+		driver.findElement(By.xpath("//div[@title='Zapisz']")).click();
+			}
+	
+	public void loginApp(String login, String password){
+		System.out.println("Wybór jêzyka");
+		driver.findElement(By.xpath("//*[@id='lang-links-panel']/div[1]/a/div")).click();
+				
+		WebElement logname = getElement("UserName", "id");
+		logname.clear();
+		logname.sendKeys(login);
+		
+		
+		WebElement passwd = getElement("Password", "id");
+		passwd.clear();
+		passwd.sendKeys(password);
+	}
 }
