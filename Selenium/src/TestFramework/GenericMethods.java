@@ -125,7 +125,6 @@ public class GenericMethods {
 		driver.findElement(By.xpath("//a[@title='"+menuName+"']")).click();
 		Thread.sleep(500);
 		driver.findElement(By.xpath("//a[@title='"+menuName+"']")).click();
-		System.out.println("koniec metody");
 	}
 	
 	//klikniêcie w kafel w menu Konfiguracja
