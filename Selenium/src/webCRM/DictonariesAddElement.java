@@ -71,6 +71,8 @@ public class DictonariesAddElement {
 		gm.clickTileByi18("Typy wizyt");
 		gm.searchOnList(newDictionariesValue);
 		Thread.sleep(1000);
+		gm.clearSearchbox();
+		Thread.sleep(1000);
 		
 		System.out.println("Klikniêcie: " + newDictionariesValue);
 		dicElement = gm.getElement("//div[@id='transistsTypesList']//span[text()='"+newDictionariesValue+"']", "xpath");
@@ -82,11 +84,7 @@ public class DictonariesAddElement {
 		Thread.sleep(1000);
 		dicElement.sendKeys(Keys.ENTER);
 		Thread.sleep(1000);
-		
-		//gm.clearSearchbox();
-		gm.searchOnList("smth");
-		Thread.sleep(1000);
-		
+				
 		gm.addElementToTable();
 		Thread.sleep(500);
 		driver.findElement(By.xpath("html/body/div[2]/div/div/div[1]/div[3]/div[1]/input")).click();
