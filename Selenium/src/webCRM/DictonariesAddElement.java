@@ -31,8 +31,9 @@ public class DictonariesAddElement {
 		
 		baseURL = "http://localhost/MobileManagement/";
 		driver.get(baseURL);
-		String newDictionariesValue = "nowa wartoœæ";
+		String newDictionariesValue = "zmieniona wartoœæ";
 		String oldDictionariesValue = "Ankieta okresowa";
+		String addDictionariesValue = "nowa wartoœæ" + gm.getDate();
 		
 		gm.loginApp("ms", "ms");
 
@@ -74,19 +75,39 @@ public class DictonariesAddElement {
 		System.out.println("Klikniêcie: " + newDictionariesValue);
 		dicElement = gm.getElement("//div[@id='transistsTypesList']//span[text()='"+newDictionariesValue+"']", "xpath");
 		dicElement.click();
+		Thread.sleep(1000);
 		dicElement = gm.getElement("//div[@id='transistsTypesList']//span[text()='"+newDictionariesValue+"']//following-sibling::textarea", "xpath");
 		dicElement.clear();
-		
 		dicElement.sendKeys(oldDictionariesValue);
 		Thread.sleep(1000);
 		dicElement.sendKeys(Keys.ENTER);
 		Thread.sleep(1000);
+		
+		//gm.clearSearchbox();
+		gm.searchOnList("smth");
+		Thread.sleep(1000);
+		
+		gm.addElementToTable();
+		Thread.sleep(500);
+		driver.findElement(By.xpath("html/body/div[2]/div/div/div[1]/div[3]/div[1]/input")).click();
+		Thread.sleep(1000);
+		dicElement = gm.getElement("//div[@id='transistsTypesList']//span[text()='Brak wartoœci']", "xpath");
+		dicElement.click();
+		dicElement = gm.getElement("//div[@id='transistsTypesList']//span[contains(@class,'edit-in-place-invalid')]//following-sibling::textarea", "xpath");
+		dicElement.clear();
+		System.out.println("2");
+		dicElement.sendKeys(newDictionariesValue);
+		Thread.sleep(1000);
+		dicElement.sendKeys(Keys.ENTER);
+
+		Thread.sleep(1000);
+		
 		gm.saveClickAB();
 	}
 	
 	@After
 	public void tearDown() throws Exception {
-		driver.quit();
+		//driver.quit();
 	}
 
 

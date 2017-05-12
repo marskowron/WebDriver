@@ -1,8 +1,10 @@
 package TestFramework;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Date;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -132,10 +134,24 @@ public class GenericMethods {
 	public void searchOnList(String searchText){
 		System.out.println("Wyszukanie obiektu: Filtr");
 		String search = searchText;
-		System.out.println("Wyszukanie frazy: " + search);
 		WebElement searcher = driver.findElement(By.xpath("//div[@class='esmAppBar-search-input']//input[@placeholder='Szukaj']"));
+		System.out.println("Czyszczenie obiektu: Filtr");
 		searcher.click();
+		searcher.clear();
+		System.out.println("Wyszukanie frazy: " + search);
 		searcher.sendKeys(search);
+	}
+	
+	public void clearSearchbox(){
+		System.out.println("Czyszczenie obiektu: Filtr");
+		WebElement searcher = driver.findElement(By.xpath("//div[@class='esmAppBar-search-input']//input[@placeholder='Szukaj']"));
+		searcher.clear();
+	}
+	
+	public void addElementToTable(){
+		System.out.println("Dodanie nowego obiektu do tabeli");
+		WebElement addButton = driver.findElement(By.xpath("//div[contains(@class,'esmTableView-add-icon')]"));
+		addButton.click();
 	}
 	
 	public void loginApp(String login, String password){
@@ -153,5 +169,13 @@ public class GenericMethods {
 		
 		System.out.println("Klikniêcie zaloguj");
 		driver.findElement(By.xpath("//*[@id='form']//input[@type='submit']")).click();
+	}
+	
+	public String getDate (){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		String result = dateFormat.format(date);
+		System.out.println(result);
+		return result;
 	}
 }
