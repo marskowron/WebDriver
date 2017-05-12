@@ -17,6 +17,7 @@ public class GenericMethods {
 		this.driver = driver;
 	}
 
+	//wyszukanie elementu na stronie wybranym sposobem (id, xpath, nazwa, tag, linktext, css selector
 	public WebElement getElement(String locator, String type)
 	{
 		type = type.toLowerCase();
@@ -58,7 +59,8 @@ public class GenericMethods {
 			return null;
 		}
 	}
-	
+
+	//wyszukanie listy elementów na stronie
 	public List<WebElement> getElementList(String locator, String type) {
 		type = type.toLowerCase();
 		List<WebElement> elementList = new ArrayList<WebElement>();
@@ -98,10 +100,12 @@ public class GenericMethods {
 		return elementList;
 	}
 
+	//sprawdznie czy element jest obecny
 	public boolean isElementPresent(String locator, String type){
 		List<WebElement> elementList = getElementList(locator, type);
 		
 		if (elementList.size()>0){
+			System.out.println("Element <"+ locator+ ">o typie <"+type+"> zosta³ znaleziony na stronie" );
 			return true;
 		}
 		else{
@@ -109,28 +113,33 @@ public class GenericMethods {
 		}
 	}
 	
+	//klikniêcie Zapisz na pasku nawigacji
 	public void saveClickAB(){
 		driver.findElement(By.xpath("//div[@title='Zapisz']")).click();
 			}
 	
+	//przejœcie do wybranego menu aplikacji
 	public void openMenu(String menuName){
 		String searchMenu = menuName;
 		System.out.println("Przejœcie do menu: " + searchMenu);
 		driver.findElement(By.xpath("//a[@title='"+searchMenu+"']")).click();
 	}
 	
+	//klikniêcie w kafel w menu Konfiguracja
 	public void clickConfigurationTile(String tileName){
 		String searchTile = tileName;
 		System.out.println("Klikniêcie w menu: " + searchTile);
 		driver.findElement(By.xpath("//p[text()='"+searchTile+"']")).click();
 	}
 	
+	//klikniêcie w kafelek
 	public void clickTileByi18(String tileName){
 		String searchTile = tileName;
 		System.out.println("Klikniêcie w kafel: " + searchTile);
 		driver.findElement(By.xpath("//div[@i18n='"+searchTile+"']")).click();
 	}
 	
+	//wyszukanie frazy w wyszukiwarce na pasku nawigacyjnym
 	public void searchOnList(String searchText){
 		System.out.println("Wyszukanie obiektu: Filtr");
 		String search = searchText;
@@ -142,18 +151,21 @@ public class GenericMethods {
 		searcher.sendKeys(search);
 	}
 	
+	//wyczyszczenie wyszukiwarki
 	public void clearSearchbox(){
 		System.out.println("Czyszczenie obiektu: Filtr");
 		WebElement searcher = driver.findElement(By.xpath("//div[@class='esmAppBar-search-input']//input[@placeholder='Szukaj']"));
 		searcher.clear();
 	}
 	
+	//dodanie elementu do tabeli
 	public void addElementToTable(){
 		System.out.println("Dodanie nowego obiektu do tabeli");
 		WebElement addButton = driver.findElement(By.xpath("//div[contains(@class,'esmTableView-add-icon')]"));
 		addButton.click();
 	}
 	
+	//zalogowanie siê do aplikacji
 	public void loginApp(String login, String password){
 		System.out.println("Wybór jêzyka");
 		driver.findElement(By.xpath("//*[@id='lang-links-panel']/div[1]/a/div")).click();
@@ -171,6 +183,7 @@ public class GenericMethods {
 		driver.findElement(By.xpath("//*[@id='form']//input[@type='submit']")).click();
 	}
 	
+	//pobranie bie¿¹cej daty
 	public String getDate (){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
