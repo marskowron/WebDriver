@@ -14,46 +14,42 @@ import TestFramework.GenericMethods;
 
 public class DictonariesAddElement {
 
-	private WebDriver driver;
+	private WebDriver driver = new FirefoxDriver();
 	private String baseURL;
 	private GenericMethods gm;
 	
 	@Before
 	public void setUp() throws Exception {
-		//driver = new ChromeDriver();
-		driver = new FirefoxDriver();
-		baseURL = "http://localhost/MobileManagement/";
+		
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.get(baseURL);
 		gm = new GenericMethods(driver);
 	}
 
 	@Test
 	public void _01Login() throws InterruptedException {
-	
+		
+		baseURL = "http://localhost/MobileManagement/";
+		driver.get(baseURL);
+		String newDictionariesValue = "nowa wartoœæ";
+		String oldDictionariesValue = "Ankieta okresowa";
+		
 		gm.loginApp("ms", "ms");
-		
-		System.out.println("Klikniêcie zaloguj");
-		driver.findElement(By.xpath("//*[@id='form']//input[@type='submit']")).click();
-		
-		System.out.println("Klikniêcie konfiguracja");
-		driver.findElement(By.xpath("//a[@title='Konfiguracja']")).click();
+
+		gm.openMenu("Konfiguracja");
 		
 		Thread.sleep(1000);
-		System.out.println("Klikniêcie menu s³owniki");
-		driver.findElement(By.xpath("//p[text()='S³owniki']")).click();
+		gm.clickConfigurationTile("S³owniki");
 		
-		Thread.sleep(2000);
-		System.out.println("Klikniêcie menu Typy wizyt");
-		driver.findElement(By.xpath("//div[@i18n='Typy wizyt']")).click();
+		Thread.sleep(1000);
+		gm.clickTileByi18("Typy wizyt");
 		//div[@id='transistsTypesList']//span[text()='Ankieta okresowa']
 		
-		Thread.sleep(2000);
-		System.out.println("Klikniêcie Ankieta okresowa");
-		WebElement dicElement = gm.getElement("//div[@id='transistsTypesList']//span[text()='Ankieta okresowa']", "xpath");
+		Thread.sleep(1000);
+		System.out.println("Klikniêcie: " + oldDictionariesValue);
+		WebElement dicElement = gm.getElement("//div[@id='transistsTypesList']//span[text()='"+oldDictionariesValue+"']", "xpath");
 		dicElement.click();
-		dicElement = gm.getElement("//div[@id='transistsTypesList']//span[text()='Ankieta okresowa']//following-sibling::textarea", "xpath");
+		dicElement = gm.getElement("//div[@id='transistsTypesList']//span[text()='"+oldDictionariesValue+"']//following-sibling::textarea", "xpath");
 		dicElement.clear();
 		
 		gm.saveClickAB();
@@ -64,15 +60,33 @@ public class DictonariesAddElement {
 		dicElement.click();
 		dicElement = gm.getElement("//div[@id='transistsTypesList']//span[contains(@class,'edit-in-place-invalid')]//following-sibling::textarea", "xpath");
 		dicElement.clear();
-		
-		dicElement.sendKeys("nowa wartoœæ");
+		dicElement.sendKeys(newDictionariesValue);
+		Thread.sleep(1000);
 		dicElement.sendKeys(Keys.ENTER);
+		Thread.sleep(1000);
 		
-		driver.findElement(By.xpath("//div[@title='Zapisz']")).click();
+		gm.saveClickAB();
+		
+		gm.clickTileByi18("Typy wizyt");
+		gm.searchOnList(newDictionariesValue);
+		Thread.sleep(1000);
+		
+		System.out.println("Klikniêcie: " + newDictionariesValue);
+		dicElement = gm.getElement("//div[@id='transistsTypesList']//span[text()='"+newDictionariesValue+"']", "xpath");
+		dicElement.click();
+		dicElement = gm.getElement("//div[@id='transistsTypesList']//span[text()='"+newDictionariesValue+"']//following-sibling::textarea", "xpath");
+		dicElement.clear();
+		
+		dicElement.sendKeys(oldDictionariesValue);
+		Thread.sleep(1000);
+		dicElement.sendKeys(Keys.ENTER);
+		Thread.sleep(1000);
+		gm.saveClickAB();
 	}
 	
 	@After
 	public void tearDown() throws Exception {
+		driver.quit();
 	}
 
 

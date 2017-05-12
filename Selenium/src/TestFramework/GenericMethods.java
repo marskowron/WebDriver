@@ -111,17 +111,47 @@ public class GenericMethods {
 		driver.findElement(By.xpath("//div[@title='Zapisz']")).click();
 			}
 	
+	public void openMenu(String menuName){
+		String searchMenu = menuName;
+		System.out.println("Przejœcie do menu: " + searchMenu);
+		driver.findElement(By.xpath("//a[@title='"+searchMenu+"']")).click();
+	}
+	
+	public void clickConfigurationTile(String tileName){
+		String searchTile = tileName;
+		System.out.println("Klikniêcie w menu: " + searchTile);
+		driver.findElement(By.xpath("//p[text()='"+searchTile+"']")).click();
+	}
+	
+	public void clickTileByi18(String tileName){
+		String searchTile = tileName;
+		System.out.println("Klikniêcie w kafel: " + searchTile);
+		driver.findElement(By.xpath("//div[@i18n='"+searchTile+"']")).click();
+	}
+	
+	public void searchOnList(String searchText){
+		System.out.println("Wyszukanie obiektu: Filtr");
+		String search = searchText;
+		System.out.println("Wyszukanie frazy: " + search);
+		WebElement searcher = driver.findElement(By.xpath("//div[@class='esmAppBar-search-input']//input[@placeholder='Szukaj']"));
+		searcher.click();
+		searcher.sendKeys(search);
+	}
+	
 	public void loginApp(String login, String password){
 		System.out.println("Wybór jêzyka");
 		driver.findElement(By.xpath("//*[@id='lang-links-panel']/div[1]/a/div")).click();
-				
+		
+		System.out.println("Próba zalogowania na u¿ytkownika: " + login + " / " + password );
 		WebElement logname = getElement("UserName", "id");
 		logname.clear();
 		logname.sendKeys(login);
-		
-		
+				
 		WebElement passwd = getElement("Password", "id");
 		passwd.clear();
 		passwd.sendKeys(password);
+		
+		System.out.println("Klikniêcie zaloguj");
+		driver.findElement(By.xpath("//*[@id='form']//input[@type='submit']")).click();
 	}
 }
