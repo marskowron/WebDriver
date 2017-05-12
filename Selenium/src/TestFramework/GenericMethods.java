@@ -120,35 +120,31 @@ public class GenericMethods {
 	
 	//przejœcie do wybranego menu aplikacji
 	public void openMenu(String menuName){
-		String searchMenu = menuName;
-		System.out.println("Przejœcie do menu: " + searchMenu);
-		driver.findElement(By.xpath("//a[@title='"+searchMenu+"']")).click();
+		System.out.println("Przejœcie do menu: " + menuName);
+		driver.findElement(By.xpath("//a[@title='"+menuName+"']")).click();
 	}
 	
 	//klikniêcie w kafel w menu Konfiguracja
 	public void clickConfigurationTile(String tileName){
-		String searchTile = tileName;
-		System.out.println("Klikniêcie w menu: " + searchTile);
-		driver.findElement(By.xpath("//p[text()='"+searchTile+"']")).click();
+		System.out.println("Klikniêcie w menu: " + tileName);
+		driver.findElement(By.xpath("//p[text()='"+tileName+"']")).click();
 	}
 	
 	//klikniêcie w kafelek
 	public void clickTileByi18(String tileName){
-		String searchTile = tileName;
-		System.out.println("Klikniêcie w kafel: " + searchTile);
-		driver.findElement(By.xpath("//div[@i18n='"+searchTile+"']")).click();
+		System.out.println("Klikniêcie w kafel: " + tileName);
+		driver.findElement(By.xpath("//div[@i18n='"+tileName+"']")).click();
 	}
 	
 	//wyszukanie frazy w wyszukiwarce na pasku nawigacyjnym
 	public void searchOnList(String searchText){
 		System.out.println("Wyszukanie obiektu: Filtr");
-		String search = searchText;
 		WebElement searcher = driver.findElement(By.xpath("//div[@class='esmAppBar-search-input']//input[@placeholder='Szukaj']"));
 		System.out.println("Czyszczenie obiektu: Filtr");
 		searcher.click();
 		searcher.clear();
-		System.out.println("Wyszukanie frazy: " + search);
-		searcher.sendKeys(search);
+		System.out.println("Wyszukanie frazy: " + searchText);
+		searcher.sendKeys(searchText);
 	}
 	
 	//wyczyszczenie wyszukiwarki
@@ -168,7 +164,7 @@ public class GenericMethods {
 	//zalogowanie siê do aplikacji
 	public void loginApp(String login, String password){
 		System.out.println("Wybór jêzyka");
-		driver.findElement(By.xpath("//*[@id='lang-links-panel']/div[1]/a/div")).click();
+		driver.findElement(By.xpath("//*[@id='lang-links-panel']/div[1]/a/div")).click(); //wybór jêzyka:polski
 		
 		System.out.println("Próba zalogowania na u¿ytkownika: " + login + " / " + password );
 		WebElement logname = getElement("UserName", "id");
@@ -180,7 +176,7 @@ public class GenericMethods {
 		passwd.sendKeys(password);
 		
 		System.out.println("Klikniêcie zaloguj");
-		driver.findElement(By.xpath("//*[@id='form']//input[@type='submit']")).click();
+		driver.findElement(By.xpath("//*[@id='form']//input[@type='submit']")).click(); 
 	}
 	
 	//pobranie bie¿¹cej daty
