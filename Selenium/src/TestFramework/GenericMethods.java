@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -23,35 +24,35 @@ public class GenericMethods {
 		type = type.toLowerCase();
 		
 		if(type.equals("id")) {
-			System.out.println("Element found by id: " + locator);
+			System.out.println("Element found znaleziony za pomoc¹ id: " + locator);
 			return this.driver.findElement(By.id(locator));
 		}
 		else if (type.equals("xpath")){
-			System.out.println("Element found by xpath: " + locator);
+			System.out.println("Element znaleziony za pomoc¹ xpath: " + locator);
 			return this.driver.findElement(By.xpath(locator));	
 		}
 		else if (type.equals("css")){
-			System.out.println("Element found by CSS selector: " + locator);
+			System.out.println("Element znaleziony za pomoc¹ CSS selector: " + locator);
 			return this.driver.findElement(By.cssSelector(locator));
 		}
 		else if (type.equals("link")){
-			System.out.println("Element found by LinkText: " + locator);
+			System.out.println("Element znaleziony za pomoc¹ LinkText: " + locator);
 			return this.driver.findElement(By.linkText(locator));
 		}
 		else if (type.equals("partial link")){
-			System.out.println("Element found by Partial LinkText: " + locator);
+			System.out.println("Element znaleziony za pomoc¹ Partial LinkText: " + locator);
 			return this.driver.findElement(By.partialLinkText(locator));
 		}
 		else if (type.equals("name")){
-			System.out.println("Element found by name: " + locator);
+			System.out.println("Element znaleziony za pomoc¹ name: " + locator);
 			return this.driver.findElement(By.name(locator));
 		}
 		else if (type.equals("tag")){
-			System.out.println("Element found by tag: " + locator);
+			System.out.println("Element znaleziony za pomoc¹ tag: " + locator);
 			return this.driver.findElement(By.tagName(locator));
 		}
 		else if (type.equals("class")){
-			System.out.println("Element found by Class Name: " + locator);
+			System.out.println("Element znaleziony za pomoc¹ Class Name: " + locator);
 			return this.driver.findElement(By.className(locator));
 		}
 		else {
@@ -114,14 +115,17 @@ public class GenericMethods {
 	}
 	
 	//klikniêcie Zapisz na pasku nawigacji
-	public void saveClickAB(){
+	public void saveClickOnNavigationPanel(){
 		driver.findElement(By.xpath("//div[@title='Zapisz']")).click();
 			}
 	
 	//przejœcie do wybranego menu aplikacji
-	public void openMenu(String menuName){
+	public void openMenu(String menuName) throws InterruptedException{
 		System.out.println("Przejœcie do menu: " + menuName);
 		driver.findElement(By.xpath("//a[@title='"+menuName+"']")).click();
+		Thread.sleep(500);
+		driver.findElement(By.xpath("//a[@title='"+menuName+"']")).click();
+		System.out.println("koniec metody");
 	}
 	
 	//klikniêcie w kafel w menu Konfiguracja
@@ -135,6 +139,13 @@ public class GenericMethods {
 		System.out.println("Klikniêcie w kafel: " + tileName);
 		driver.findElement(By.xpath("//div[@i18n='"+tileName+"']")).click();
 	}
+	
+	//wybór opcji na messageboxie
+	public void clickMessageBoxButton(String option){
+		System.out.println("Messagebox - wybór opcji: " + option);
+		driver.findElement(By.xpath("//div[@id='esmMessageBox-main-container']//div[text()='"+option+"']")).click();
+	}
+
 	
 	//wyszukanie frazy w wyszukiwarce na pasku nawigacyjnym
 	public void searchOnList(String searchText){
@@ -187,4 +198,39 @@ public class GenericMethods {
 		System.out.println(result);
 		return result;
 	}
+	
+	//wyszukanie elementu na liœcie s³ownikowej
+	public void findElementOnList(String DictionariesValue) throws InterruptedException {
+		WebElement dicElement;
+		System.out.println("Klikniêcie: " + DictionariesValue);
+		dicElement = getElement("//span[text()='"+DictionariesValue+"']", "xpath");
+		dicElement.click();
+		Thread.sleep(1500);
+	}
+	
+	//usuniêcie elementu z listy s³ownikowej
+	public WebElement clearElementOnList(String DictionariesValue) {
+		WebElement dicElement;
+		System.out.println("Wyczyszczenie starej wartoœci");
+		dicElement = getElement("//span[text()='"+DictionariesValue+"']//following-sibling::textarea", "xpath");
+		dicElement.clear();
+		return dicElement;
+	}
+	
+	//zmiana wartoœci elementu s³ownikowego na liœcie
+	public void findAndChangeElementOnList(String oldDictionariesValue, String newDictionariesValue)
+			throws InterruptedException {
+		WebElement dicElement;
+		findElementOnList(oldDictionariesValue);
+		dicElement = clearElementOnList(oldDictionariesValue);
+		System.out.println("Wprowadzenie nowej wartoœci: " + newDictionariesValue);
+		dicElement.sendKeys(newDictionariesValue);
+		Thread.sleep(1500);
+		dicElement.sendKeys(Keys.ENTER);
+		Thread.sleep(1500);
+	}
+
+
+
+
 }
