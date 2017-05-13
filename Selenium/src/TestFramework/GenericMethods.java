@@ -10,6 +10,10 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+/**
+ * @author MMS
+ *
+ */
 public class GenericMethods {
 	
 	WebDriver driver;
@@ -19,6 +23,11 @@ public class GenericMethods {
 	}
 
 	//wyszukanie elementu na stronie wybranym sposobem (id, xpath, nazwa, tag, linktext, css selector
+	/**
+	 * @param locator Fraza, po której zostaje wyszukany element
+	 * @param type Typ frazy: dostêpne wartoœci xpath, id, css, link, partial link, tag, name, class
+	 * @return Zwraca element strony
+	 */
 	public WebElement getElement(String locator, String type)
 	{
 		type = type.toLowerCase();
@@ -61,7 +70,11 @@ public class GenericMethods {
 		}
 	}
 
-	//wyszukanie listy elementów na stronie
+	/**
+	 * @param locator Fraza, po której zostaje wyszukana lista elementów
+	 * @param type Typ frazy: dostêpne wartoœci xpath, id, css, link, partial link, tag, name, class
+	 * @return Zwraca element strony
+	 */
 	public List<WebElement> getElementList(String locator, String type) {
 		type = type.toLowerCase();
 		List<WebElement> elementList = new ArrayList<WebElement>();
@@ -101,7 +114,11 @@ public class GenericMethods {
 		return elementList;
 	}
 
-	//sprawdznie czy element jest obecny
+	/** Sprawdznie, czy element jest obecny na stronie 
+	 * @param locator {@link #getElementList(String, String)}
+	 * @param type {@link #getElementList(String, String)}
+	 * @return Zwraca warunek prawda/fa³sz
+	 */
 	public boolean isElementPresent(String locator, String type){
 		List<WebElement> elementList = getElementList(locator, type);
 		
@@ -113,40 +130,54 @@ public class GenericMethods {
 			return false;
 		}
 	}
-	
-	//klikniêcie Zapisz na pasku nawigacji
+
+	/**
+	 * Klikniêcie przycisku Zapisz na pasku nawigacji
+	 */
 	public void saveClickOnNavigationPanel(){
 		driver.findElement(By.xpath("//div[@title='Zapisz']")).click();
 			}
 	
-	//przejœcie do wybranego menu aplikacji
-	public void openMenu(String menuName) throws InterruptedException{
+	
+	/** Przejœcie do wybranego menu aplikacji (Kontrahenci, Dzia³nia, etc)
+	 * @param menuName Nazwa menu
+	 * @throws InterruptedException Zawiera sleepa
+	 */
+	public void openMenu(String menuName) throws InterruptedException {
 		System.out.println("Przejœcie do menu: " + menuName);
 		driver.findElement(By.xpath("//a[@title='"+menuName+"']")).click();
 		Thread.sleep(500);
 		driver.findElement(By.xpath("//a[@title='"+menuName+"']")).click();
 	}
 	
-	//klikniêcie w kafel w menu Konfiguracja
+	
+	/** Klikniêcie w wybrany kafel w menu Konfiguracja
+	 * @param tileName Nazwa szukanego kafelka
+	 */
 	public void clickConfigurationTile(String tileName){
 		System.out.println("Klikniêcie w menu: " + tileName);
 		driver.findElement(By.xpath("//p[text()='"+tileName+"']")).click();
 	}
 	
-	//klikniêcie w kafelek
+	/** Klikniêcie w wybrany kafelek na liœcie (np. s³owników, rejonów, etc.)
+	 * @param tileName Nazwa szukanego kafelka
+	 */
 	public void clickTileByi18(String tileName){
 		System.out.println("Klikniêcie w kafel: " + tileName);
 		driver.findElement(By.xpath("//div[@i18n='"+tileName+"']")).click();
 	}
 	
-	//wybór opcji na messageboxie
+	/** Wybór opcji na messageboxie (OK, anuluj)
+	 * @param option Opis na przycisku, np. "OK"
+	 */
 	public void clickMessageBoxButton(String option){
 		System.out.println("Messagebox - wybór opcji: " + option);
 		driver.findElement(By.xpath("//div[@id='esmMessageBox-main-container']//div[text()='"+option+"']")).click();
 	}
-
 	
-	//wyszukanie frazy w wyszukiwarce na pasku nawigacyjnym
+	/** Wyszukanie frazy w wyszukiwarce na pasku nawigacyjnym
+	 * @param searchText Szukana fraza
+	 */
 	public void searchOnList(String searchText){
 		System.out.println("Wyszukanie obiektu: Filtr");
 		WebElement searcher = driver.findElement(By.xpath("//div[@class='esmAppBar-search-input']//input[@placeholder='Szukaj']"));
@@ -157,21 +188,31 @@ public class GenericMethods {
 		searcher.sendKeys(searchText);
 	}
 	
-	//wyczyszczenie wyszukiwarki
+	/**
+	 * Wyczyszczenie wyszukiwarki na pasku nawigacyjnym
+	 */
 	public void clearSearchbox(){
 		System.out.println("Czyszczenie obiektu: Filtr");
 		WebElement searcher = driver.findElement(By.xpath("//div[@class='esmAppBar-search-input']//input[@placeholder='Szukaj']"));
 		searcher.clear();
 	}
 	
-	//dodanie elementu do tabeli
+	/**
+	 * Dodanie elementu do tabeli np. s³ownika - klikniêcie plusa
+	 */
 	public void addElementToTable(){
 		System.out.println("Dodanie nowego obiektu do tabeli");
 		WebElement addButton = driver.findElement(By.xpath("//div[contains(@class,'esmTableView-add-icon')]"));
 		addButton.click();
 	}
 	
-	//zalogowanie siê do aplikacji
+	/** Zalogowanie siê do aplikacji: 
+	 * wybranie jêzyka polskiego, 
+	 * uzupe³nienie pól Login i Has³o, 
+	 * klikniêcie Zaloguj
+	 * @param login Login u¿ytkownika
+	 * @param password Has³o u¿ytkownika
+	 */
 	public void loginApp(String login, String password){
 		System.out.println("Wybór jêzyka");
 		driver.findElement(By.xpath("//*[@id='lang-links-panel']/div[1]/a/div")).click(); //wybór jêzyka:polski
@@ -189,7 +230,9 @@ public class GenericMethods {
 		driver.findElement(By.xpath("//*[@id='form']//input[@type='submit']")).click(); 
 	}
 	
-	//pobranie bie¿¹cej daty
+	/** Pobranie bie¿¹cej daty 
+	 * @return Zwraca datê w formacie "yyyy/MM/dd HH:mm:ss"
+	 */
 	public String getDate (){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
@@ -198,7 +241,10 @@ public class GenericMethods {
 		return result;
 	}
 	
-	//wyszukanie elementu na liœcie s³ownikowej
+	/** Wyszukanie elementu na liœcie s³ownikowej + klikniêcie w dany element
+	 * @param DictionariesValue Szukana wartoœæ w tabeli
+	 * @throws InterruptedException Zawiera sleepa
+	 */
 	public void findElementOnList(String DictionariesValue) throws InterruptedException {
 		WebElement dicElement;
 		System.out.println("Klikniêcie: " + DictionariesValue);
@@ -207,7 +253,10 @@ public class GenericMethods {
 		Thread.sleep(1500);
 	}
 	
-	//usuniêcie elementu z listy s³ownikowej
+	/** Wyczyszczenie nazwy okreœlonego elementu na liœcie (tabeli) s³ownikowej. Stosowaæ razem z {@link #findElementOnList(String)}
+	 * @param DictionariesValue Wartoœæ na liœcie, która ma byæ wyczyszczona
+	 * @return
+	 */
 	public WebElement clearElementOnList(String DictionariesValue) {
 		WebElement dicElement;
 		System.out.println("Wyczyszczenie starej wartoœci");
@@ -216,7 +265,11 @@ public class GenericMethods {
 		return dicElement;
 	}
 	
-	//zmiana wartoœci elementu s³ownikowego na liœcie
+	/** Zmiana nazwy elementu s³ownikowego na liœcie
+	 * @param oldDictionariesValue Stara nazwa elementu
+	 * @param newDictionariesValue Fraza, na jak¹ ma byæ zmieniona wartoœæ
+	 * @throws InterruptedException Zawiera sleepa
+	 */
 	public void findAndChangeElementOnList(String oldDictionariesValue, String newDictionariesValue)
 			throws InterruptedException {
 		WebElement dicElement;
@@ -228,8 +281,4 @@ public class GenericMethods {
 		dicElement.sendKeys(Keys.ENTER);
 		Thread.sleep(1500);
 	}
-
-
-
-
 }
