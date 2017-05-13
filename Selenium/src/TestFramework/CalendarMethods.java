@@ -13,7 +13,11 @@ WebDriver driver;
 		
 	}
 	
-	//przejœcie w kalendarzu do wybranej pó¿niejszej daty w kalendarzu (dzia³ania)
+	/**Przejœcie w kalendarzu do wybranej pózniejszej daty w kalendarzu (dzia³an)
+	 * @param year Rok
+	 * @param month Miesi¹c
+	 * @param day Dzieñ
+	 */
 	public void moveToFutherDate(String year, String month, String day) {
 		System.out.println("Przejœcie do daty: " + day + "/" + month + "/" + year);
 		openCalendar();
@@ -35,27 +39,37 @@ WebDriver driver;
 		clickOnDay(day);
 	}
 	
-	//klikniêcie wybranego dnia na kalendarzu
+	/**Klikniêcie wybranego dnia na kalendarzu w menu Dzia³ania
+	 * @param day Szukany dzieñ miesi¹ca
+	 */
 	public void clickOnDay(String day) {
 		System.out.println("Wybór dnia: " + day);
 		WebElement newDay = driver.findElement(By.xpath("//div[@id='mainAdp']//div[contains(text(),'"+day+"')]"));
 		newDay.click();
 	}
 	
-	//przejœcie do nastêpnego miesi¹ca
+	/**
+	 * Przejœcie do nastêpnego miesi¹ca w kalendarzu Dzia³ñ (datapicker)
+	 */
 	public void moveToNextMonth() {
 		System.out.println("Przejœcie do nastêpengo miesi¹ca w kalendarzu");
 		WebElement moveForward = driver.findElement(By.xpath("//div[@id='mainAdp']//div[contains(@class,'esmAdp-next-month-icon')]"));
 		moveForward.click();
 	}
 
-	//otwarcie kalendarza
+	/**
+	 * Otwarcie datapickera z kalendarzem w menu Dzia³ania
+	 */
 	public void openCalendar() {
 		System.out.println("Otwarcie kalendarza");
 		driver.findElement(By.xpath("//div[@class='esmWeekCal-daysOfWeek-container']//col")).click();
 	}
 	
-	//przejœcie w kalendarzu do wybranej poprzedniej daty w kalendarzu (dzia³an
+	/**Przejœcie w kalendarzu do wybranej poprzedniej daty w kalendarzu (dzia³an)
+	 * @param year Rok
+	 * @param month Miesi¹c
+	 * @param day Dzieñ
+	 */
 	public void moveToPreviousDate(String year, String month, String day) {
 		System.out.println("Przejœcie do daty: " + day + "/" + month + "/" + year);
 		openCalendar();
@@ -77,18 +91,32 @@ WebDriver driver;
 		clickOnDay(day);
 	}
 	
-	//przejœcie do porzedniego miesi¹ca w kalendarzu
+	/**
+	 * Przejœcie do porzedniego miesi¹ca w kalendarzu w menu Dzia³ania
+	 */
 	public void moveToPreviousMonth() {
 		System.out.println("Przejœcie do poprzedniego miesi¹ca");
 		WebElement movePrevious = driver.findElement(By.xpath("//div[@id='mainAdp']//div[contains(@class,'esmAdp-prev-month-icon')]"));
 		movePrevious.click();
 	}
 	
-	//przejœcie do dzisiejszego dnia
+	/**
+	 * Przejœcie do dzisiejszego dnia
+	 */
 	public void moveToToday() {
 		System.out.println("Przejœcie do dzisiejszego dnia");
 		openCalendar();
 		WebElement today = driver.findElement(By.xpath("//div[@id='mainAdpToday']/div[@data-i18n='_Today_']"));
 		today.click();
+	}
+	
+	/**Przejœcie do wybranej komórki kalendarza (pracownik, dzieñ tygodnia)
+	 * @param employee Pracownik zgodnie z wartoœci¹ komórki
+	 * @param dayOfWeek Dzieñ tygodnia (1,2,3,4,5,6,7)
+	 */
+	public void getCalendarCell(String employee, int dayOfWeek) {
+		WebElement cell = driver.findElement(
+				By.xpath("//table[@class='esmWeekCal-body']//p[contains(text(),'"+employee+"')]//parent::div//parent::ng-include//parent::td//following-sibling::td["+dayOfWeek+"]"));
+		cell.click();
 	}
 }

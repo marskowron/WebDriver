@@ -161,6 +161,7 @@ public class DictonariesAddElement {
 		String year = "2018";
 		String month = "listopad";
 		String day = "27";
+		int dayOfWeek = 3;
 				
 		//logowanie do aplikacji
 		driver.get(baseURL);
@@ -171,9 +172,11 @@ public class DictonariesAddElement {
 		gm.openMenu("Dzia³ania");
 		Thread.sleep(1500);
 		
-		//wybór dnia i pracownika
+		//przejœcie do wybranej daty
 		cm.moveToFutherDate(year, month, day);
 		Thread.sleep(3000);
+		
+		//miesi¹c w przód/w ty³
 		cm.openCalendar();
 		cm.moveToNextMonth();
 		Thread.sleep(1500);
@@ -181,10 +184,24 @@ public class DictonariesAddElement {
 		Thread.sleep(1500);
 		cm.clickOnDay(day);
 		Thread.sleep(1500);
+		
+		//wybór dnia dzisiejszego
 		cm.moveToToday();
+		Thread.sleep(1500);
+		
+		//klikanie po kalendarzu
+		cm.getCalendarCell(employee, dayOfWeek);
+		
+		Thread.sleep(1500);
+		employee="Pracowity Cezary";
+		dayOfWeek=4;
+		cm.getCalendarCell(employee, dayOfWeek);
+		
+		Thread.sleep(1500);
+		employee="Gaboni Nicolas";
+		dayOfWeek=1;
+		cm.getCalendarCell(employee, dayOfWeek);
 	}
-
-	
 	
 	@After
 	public void tearDown() throws Exception {
