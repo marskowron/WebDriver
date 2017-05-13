@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import TestFramework.GenericMethods;
+import TestFramework.*;
 
 public class DictonariesAddElement {
 
@@ -19,7 +19,7 @@ public class DictonariesAddElement {
 	
 	private String baseURL;
 	private GenericMethods gm;
-	
+	private CalendarMethods cm;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -27,6 +27,7 @@ public class DictonariesAddElement {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		gm = new GenericMethods(driver);
+		cm = new CalendarMethods(driver);
 		//baseURL = "http://localhost/MobileManagement/";
 		baseURL = "http://195.69.208.91:808/MobileManagement_pxl2/";
 	}
@@ -171,14 +172,19 @@ public class DictonariesAddElement {
 		Thread.sleep(1500);
 		
 		//wybór dnia i pracownika
-		gm.getElement("//div[@class='esmWeekCal-daysOfWeek-container']//col", "xpath").click();
-		WebElement element = driver.findElement(By.xpath("//div[@id='mainAdp']//div[contains(@class,'esmAdp-title') and contains(@class,'ng-binding')]"));
-		System.out.println("a");
-		String currentMonth = element.getText();
-		String [] currentDate = new String [2];
-		currentDate = currentMonth.split(" ");
-		
+		cm.moveToFutherDate(year, month, day);
+		Thread.sleep(3000);
+		cm.openCalendar();
+		cm.moveToNextMonth();
+		Thread.sleep(1500);
+		cm.moveToPreviousMonth();
+		Thread.sleep(1500);
+		cm.clickOnDay(day);
+		Thread.sleep(1500);
+		cm.moveToToday();
 	}
+
+	
 	
 	@After
 	public void tearDown() throws Exception {
