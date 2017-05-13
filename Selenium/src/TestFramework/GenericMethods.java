@@ -69,6 +69,26 @@ public class GenericMethods {
 			return null;
 		}
 	}
+	
+	
+	/** Wyszukuje WebElement za pomoc¹ xpatha po tekscie (opisie) wyœwietlonym na ekranie
+	 * @param text Fragment tekstu widoczny na formatce
+	 * @return WebElement
+	 */
+	public WebElement getElementContainText(String text){
+		System.out.println("Wyszukanie obiektu za pomoc¹ xpatha: " + text);
+		return this.driver.findElement(By.xpath("//*[contains(text(),'"+text+"')]"));
+			}
+	 
+	/** Wyszukuje WebElement za pomoc¹ xpatha po tekscie (opisie) wyœwietlonym na ekranie
+	 * @param text Fragment tekstu widoczny na formatce
+	 * @param tagType Typ taga, np. div, span, td
+	 * @return WebElement
+	 */
+	public WebElement getElementContainText(String text, String tagType){
+		System.out.println("Wyszukanie obiektu za pomoc¹ xpatha: " + text);
+		return this.driver.findElement(By.xpath("//"+tagType+"[contains(text(),'"+text+"')]"));
+			}
 
 	/**
 	 * @param locator Fraza, po której zostaje wyszukana lista elementów
@@ -138,6 +158,12 @@ public class GenericMethods {
 		driver.findElement(By.xpath("//div[@title='Zapisz']")).click();
 			}
 	
+	/**
+	 * Klikniêcie przycisku 'Dodaj nowy element' na pasku nawigacji
+	 */
+	public void addNewElementClickOnNavigationPanel(){
+		driver.findElement(By.xpath("//div[contains(@title,'Dodaj nowy element')]")).click();
+			}
 	
 	/** Przejœcie do wybranego menu aplikacji (Kontrahenci, Dzia³nia, etc)
 	 * @param menuName Nazwa menu
@@ -281,4 +307,14 @@ public class GenericMethods {
 		dicElement.sendKeys(Keys.ENTER);
 		Thread.sleep(1500);
 	}
+	
+	/** Przechodzi do wskazanego kroku (zak³adki) kreatora
+	 * @param stepNumber Numer kroku
+	 */
+	public void goToStep(int stepNumber) {
+		System.out.println("Przejœcie do kroku kreatora nr: " + stepNumber);
+		WebElement step = getElement("//div[@ng-click='goToStep("+stepNumber+")']", "xpath");
+		step.click();
+	}
+	
 }

@@ -32,9 +32,9 @@ public class DictonariesAddElement {
 		baseURL = "http://195.69.208.91:808/MobileManagement_pxl2/";
 	}
 
-	@Test
-	public void _01Login() throws InterruptedException {
-		
+//	@Test
+//	public void _01Login() throws InterruptedException {
+//		
 //		String login = "ca";
 //		String password = "ca";
 //		driver.get(baseURL);
@@ -148,59 +148,89 @@ public class DictonariesAddElement {
 //		
 //		//zapis s³ownika
 //		gm.saveClickOnNavigationPanel();
-		
-	}
-
+//		
+//	}
+// 
+//	@Test
+//	public void _02Calendar() throws InterruptedException {
+//		
+//		//definiowanie zmiennych
+//		String employee = "Skowron Marcin";
+//		String login = "ca";
+//		String password = "ca";
+//		String year = "2018";
+//		String month = "listopad";
+//		String day = "27";
+//		int dayOfWeek = 3;
+//				
+//		//logowanie do aplikacji
+//		driver.get(baseURL);
+//		gm.loginApp(login,password);
+//		Thread.sleep(1500);
+//		
+//		//Przejœcie do kalendarza
+//		gm.openMenu("Dzia³ania");
+//		Thread.sleep(1500);
+//		
+//		//przejœcie do wybranej daty
+//		cm.moveToFutherDate(year, month, day);
+//		Thread.sleep(3000);
+//		
+//		//miesi¹c w przód/w ty³
+//		cm.openCalendar();
+//		cm.moveToNextMonth();
+//		Thread.sleep(1500);
+//		cm.moveToPreviousMonth();
+//		Thread.sleep(1500);
+//		cm.clickOnDay(day);
+//		Thread.sleep(1500);
+//		
+//		//wybór dnia dzisiejszego
+//		cm.moveToToday();
+//		Thread.sleep(1500);
+//		
+//		//klikanie po kalendarzu
+//		cm.getCalendarCell(employee, dayOfWeek);
+//		
+//		Thread.sleep(1500);
+//		employee="Pracowity Cezary";
+//		dayOfWeek=4;
+//		cm.getCalendarCell(employee, dayOfWeek);
+//		
+//		Thread.sleep(1500);
+//		employee="Gaboni Nicolas";
+//		dayOfWeek=1;
+//		cm.getCalendarCell(employee, dayOfWeek);
+//	}
+	
 	@Test
-	public void _02Calendar() throws InterruptedException {
+	public void _03Questionnaires() throws InterruptedException {
 		
 		//definiowanie zmiennych
-		String employee = "Skowron Marcin";
 		String login = "ca";
 		String password = "ca";
-		String year = "2018";
-		String month = "listopad";
-		String day = "27";
-		int dayOfWeek = 3;
-				
+		
 		//logowanie do aplikacji
 		driver.get(baseURL);
 		gm.loginApp(login,password);
-		Thread.sleep(1500);
+		Thread.sleep(2000);
 		
 		//Przejœcie do kalendarza
-		gm.openMenu("Dzia³ania");
+		gm.openMenu("Konfiguracja");
+		gm.openMenu("Konfiguracja");
 		Thread.sleep(1500);
 		
-		//przejœcie do wybranej daty
-		cm.moveToFutherDate(year, month, day);
-		Thread.sleep(3000);
-		
-		//miesi¹c w przód/w ty³
-		cm.openCalendar();
-		cm.moveToNextMonth();
+		gm.clickConfigurationTile("Elementy wzorców wizyt");
 		Thread.sleep(1500);
-		cm.moveToPreviousMonth();
+		gm.addNewElementClickOnNavigationPanel();
 		Thread.sleep(1500);
-		cm.clickOnDay(day);
+		driver.findElement(By.xpath("//div[contains(@ng-show,'Other')]//span[contains(text(),'Rodzaj elementu')]")).click();
 		Thread.sleep(1500);
-		
-		//wybór dnia dzisiejszego
-		cm.moveToToday();
+		gm.getElementContainText("Ankieta", "div").click();
 		Thread.sleep(1500);
-		
-		//klikanie po kalendarzu
-		cm.getCalendarCell(employee, dayOfWeek);
-		
-		Thread.sleep(1500);
-		employee="Pracowity Cezary";
-		dayOfWeek=4;
-		cm.getCalendarCell(employee, dayOfWeek);
-		
-		Thread.sleep(1500);
-		employee="Gaboni Nicolas";
-		dayOfWeek=1;
-		cm.getCalendarCell(employee, dayOfWeek);
+		driver.findElement(By.xpath("//div[@group='1']//div[contains(text(),'WprowadŸ nazwê elementu')]")).click();
+		Thread.sleep(500);
+		gm.goToStep(2);
 	}
 	
 	@After
