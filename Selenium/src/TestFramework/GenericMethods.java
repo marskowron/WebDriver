@@ -238,8 +238,9 @@ public class GenericMethods {
 	 * klikniêcie Zaloguj
 	 * @param login Login u¿ytkownika
 	 * @param password Has³o u¿ytkownika
+	 * @throws InterruptedException 
 	 */
-	public void loginApp(String login, String password){
+	public void loginApp(String login, String password) throws InterruptedException{
 		System.out.println("Wybór jêzyka");
 		driver.findElement(By.xpath("//*[@id='lang-links-panel']/div[1]/a/div")).click(); //wybór jêzyka:polski
 		
@@ -252,6 +253,7 @@ public class GenericMethods {
 		passwd.clear();
 		passwd.sendKeys(password);
 		
+		Thread.sleep(500);
 		System.out.println("Klikniêcie zaloguj");
 		driver.findElement(By.xpath("//*[@id='form']//input[@type='submit']")).click(); 
 	}

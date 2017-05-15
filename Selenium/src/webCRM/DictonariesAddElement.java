@@ -21,6 +21,8 @@ public class DictonariesAddElement {
 	private String baseURL;
 	private GenericMethods gm;
 	private CalendarMethods cm;
+	String login = "ms";
+	String password = "ms";
 	
 	@Before
 	public void setUp() throws Exception {
@@ -29,15 +31,15 @@ public class DictonariesAddElement {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		gm = new GenericMethods(driver);
 		cm = new CalendarMethods(driver);
-		//baseURL = "http://localhost/MobileManagement/";
-		baseURL = "http://195.69.208.91:808/MobileManagement_pxl2/";
+		baseURL = "http://localhost/MobileManagement/";
+		//baseURL = "http://195.69.208.91:808/MobileManagement_pxl2/";
+
 	}
 
 	@Test
-	public void _01Login() throws InterruptedException {
+	public void _06ZLogin() throws InterruptedException {
 		
-		String login = "ca";
-		String password = "ca";
+
 		driver.get(baseURL);
 		String newDictionariesValue = "zmieniona wartoœæ1";
 		String oldDictionariesValue = "Ankieta okresowa";
@@ -157,8 +159,6 @@ public class DictonariesAddElement {
 		
 		//definiowanie zmiennych
 		String employee = "Skowron Marcin";
-		String login = "ca";
-		String password = "ca";
 		String year = "2018";
 		String month = "listopad";
 		String day = "27";
@@ -175,7 +175,7 @@ public class DictonariesAddElement {
 		
 		//przejœcie do wybranej daty
 		cm.moveToFutherDate(year, month, day);
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 		
 		//miesi¹c w przód/w ty³
 		cm.openCalendar();
@@ -194,7 +194,7 @@ public class DictonariesAddElement {
 		cm.getCalendarCell(employee, dayOfWeek);
 		
 		Thread.sleep(1500);
-		employee="Pracowity Cezary";
+		employee="1 1";
 		dayOfWeek=4;
 		cm.getCalendarCell(employee, dayOfWeek);
 		
@@ -208,8 +208,6 @@ public class DictonariesAddElement {
 	public void _03Questionnaires() throws InterruptedException {
 		
 		//definiowanie zmiennych
-		String login = "ca";
-		String password = "ca";
 		
 		//logowanie do aplikacji
 		driver.get(baseURL);
@@ -233,6 +231,8 @@ public class DictonariesAddElement {
 		name = driver.findElement(By.xpath("//div[contains(@ng-show,'Other')]//div[@class='text-box-cell']//textarea[@rows='1']"));
 		name.sendKeys("test");
 		Thread.sleep(1500);
+		driver.findElement(By.xpath("//div[contains(@ng-show,'Other')]//div[@is-on='c.data.IsRequired']//span[@class='mdwSwitch-state2']")).click();
+		Thread.sleep(1500);
 		driver.findElement(By.xpath("//div[contains(@ng-show,'Other')]//span[contains(text(),'Rodzaj elementu')]")).click();
 		Thread.sleep(1500);
 		gm.getElementContainText("Ankieta", "div").click();
@@ -250,7 +250,8 @@ public class DictonariesAddElement {
 	
 	@After
 	public void tearDown() throws Exception {
-		//driver.quit();
+		Thread.sleep(2500);
+		driver.quit();
 	}
 
 
