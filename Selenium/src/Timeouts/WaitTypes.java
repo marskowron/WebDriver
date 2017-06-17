@@ -14,7 +14,6 @@ public class WaitTypes {
 		this.driver=driver;
 		
 	}
-	
 	public WebElement waitForElement(By locator, int timeout){
 		WebElement element = null;
 		try{
@@ -31,4 +30,19 @@ public class WaitTypes {
 		return element;
 	}
 	
+public void clickWhenReady(By locator, int timeout){
+	
+	try{
+		WebElement element = null;
+		System.out.println("Waiting for max: " + timeout + " second to be clickable");
+		WebDriverWait wait = new WebDriverWait(driver, timeout); // definiujemy ile sekund maksymalnie czekamy
+		element = wait.until(
+				ExpectedConditions.elementToBeClickable(locator)); //definiujemy warunek
+		System.out.println("Element <" + locator + "> appeared on the Web page");
+		element.click();
+		System.err.println("Element clicked on the Web page");
+	}catch(Exception e){
+		System.out.println("Element not appeared on the Web page in designed time");
+	}
+}
 }
