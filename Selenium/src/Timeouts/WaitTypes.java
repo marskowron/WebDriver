@@ -19,7 +19,7 @@ public class WaitTypes {
 		WebElement element = null;
 		try{
 			System.out.println("Waiting for max: " + timeout + " second to be available");
-			WebDriverWait wait = new WebDriverWait(driver, 3); // definiujemy ile sekund maksymalnie czekamy
+			WebDriverWait wait = new WebDriverWait(driver, timeout); // definiujemy ile sekund maksymalnie czekamy
 			element = wait.until(
 					ExpectedConditions.visibilityOfElementLocated(locator)); //definiujemy warunek
 			System.out.println("Element <" + locator + "> appeared on the Web page");
