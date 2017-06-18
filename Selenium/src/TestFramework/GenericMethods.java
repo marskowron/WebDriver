@@ -271,6 +271,17 @@ public class GenericMethods {
 		return result;
 	}
 	
+	/** Tworzenie nazwy pliku (data) 
+	 * @return Zwraca nazwê pliku w formie daty
+	 */
+	public String getFileName (){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd__HH_mm_ss");
+		Date date = new Date();
+		String result = dateFormat.format(date);
+		System.out.println(result);
+		return result;
+	}
+	
 	/** Wyszukanie elementu na liœcie s³ownikowej + klikniêcie w dany element
 	 * @param DictionariesValue Szukana wartoœæ w tabeli
 	 * @throws InterruptedException Zawiera sleepa
