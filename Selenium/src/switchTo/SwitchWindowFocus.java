@@ -1,4 +1,4 @@
-package switchWindow;
+package switchTo;
 
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
